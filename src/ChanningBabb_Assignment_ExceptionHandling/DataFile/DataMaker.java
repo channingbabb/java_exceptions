@@ -24,9 +24,10 @@ public class DataMaker {
      * Creates a new array of the same size as the input array, but the data is
      * prespecified.
      * 
-     * @param data
+     * @param inputFileName
+     * @param outputFileName
      * @param rows
-     * @param columns
+     * @param cols
      * @return
      */
     public Integer[][] createSquaredData(String inputFileName, String outputFileName, int rows, int cols) {
@@ -37,17 +38,20 @@ public class DataMaker {
             String line;
             int row = 0;
             while ((line = br.readLine()) != null) {
-                String[] numbers = line.split("\\s+|\\r?\\n");
+                String[] numbers = line.split("\\s+|\\r?\\n"); // Split on whitespace
                 int currentElement = 0;
 
                 for (int col = 0; col < cols; col++) {
                     try {
-                        if (numbers[currentElement].equals("x")) {
+                        int n = Integer.parseInt(numbers[currentElement]);
+                        int squaredInt = n * n;
+
+
+                        if (squaredInt > 32767) {
                             throw new SquareOutOfBounds("Value " + numbers[currentElement] + " is out of bounds.");
                         }
 
-                        int n = Integer.parseInt(numbers[currentElement]);
-                        data[row][col] = n * n;
+                        data[row][col] = squaredInt;
                         System.out.print(n * n + " ");
                     } catch (NumberFormatException e) {
                         errors++;
