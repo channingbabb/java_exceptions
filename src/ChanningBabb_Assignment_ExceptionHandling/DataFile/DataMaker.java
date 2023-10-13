@@ -25,13 +25,10 @@ public class DataMaker {
      * prespecified.
      * 
      * @param inputFileName
-     * @param outputFileName
-     * @param rows
      * @param cols
      * @return
      */
-    public Integer[][] createSquaredData(String inputFileName, String outputFileName, int rows, int cols) {
-        DataFileWriter writer = new DataFileWriter();
+    public Integer[][] createSquaredData(String inputFileName, int cols) {
         int errors = 0;
         Integer[][] data = new Integer[10][10];
         try (BufferedReader br = new BufferedReader(new FileReader(inputFileName))) {
@@ -47,12 +44,14 @@ public class DataMaker {
                         int squaredInt = n * n;
 
 
-                        if (squaredInt > 32767) {
+                        if (squaredInt > Short.MAX_VALUE) {
+                            data[row][col] = (int) Short.MAX_VALUE;
                             throw new SquareOutOfBounds("Value " + numbers[currentElement] + " is out of bounds.");
+                        } else {
+                            data[row][col] = squaredInt;
+                            System.out.print(n * n + " ");
                         }
 
-                        data[row][col] = squaredInt;
-                        System.out.print(n * n + " ");
                     } catch (NumberFormatException e) {
                         errors++;
                         System.out.print("Number format exception: " + e.getMessage() + " ");

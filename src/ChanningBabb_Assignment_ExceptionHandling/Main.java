@@ -3,7 +3,6 @@ package ChanningBabb_Assignment_ExceptionHandling;
 import ChanningBabb_Assignment_ExceptionHandling.DataFile.DataFileWriter;
 import ChanningBabb_Assignment_ExceptionHandling.DataFile.DataMaker;
 
-import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +12,6 @@ public class Main {
         DataMaker source = new DataMaker();
         Scanner scanner = new Scanner(System.in);
 
-        final int rows = 10;
         final int cols = 10;
 
         System.out.print("src/ChanningBabb_Assignment_ExceptionHandling/test.dat\n");
@@ -22,7 +20,7 @@ public class Main {
         String outputFileName = "squares.dat";
         System.out.println("Processing file...");
 
-        Integer[][] data = source.createSquaredData(inputFileName, outputFileName, rows, cols);
+        Integer[][] data = source.createSquaredData(inputFileName, cols);
         writer.writeData(data, outputFileName);
         System.out.println("Done.");
         scanner.close();
